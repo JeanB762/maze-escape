@@ -1,6 +1,6 @@
 import pygame
 
-from src.Config import TILE_SIZE, MAZE_LAYOUT
+from src.Config import TILE_SIZE, MAZE_LAYOUT_5
 from src.Item import Item
 
 class Maze:
@@ -14,7 +14,7 @@ class Maze:
         self.floor_image = pygame.image.load("assets/floor.png")
         self.floor_image = pygame.transform.scale(self.floor_image, (TILE_SIZE, TILE_SIZE))
 
-        self.layout = MAZE_LAYOUT
+        self.layout = MAZE_LAYOUT_5
 
         for row_idx, row in enumerate(self.layout):
             for col_idx, cell in enumerate(row):
