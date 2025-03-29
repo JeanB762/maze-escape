@@ -1,9 +1,10 @@
 import pygame
-from src.Config import WIDTH, HEIGHT, WHITE, FPS, BLACK, MAZE_LAYOUT_1, MAZE_LAYOUT_2
+from src.Config import WIDTH, HEIGHT, WHITE, FPS, BLACK, LEVELS
 from src.Player import Player
 from src.Maze import Maze
 from src.Menu import Menu
-
+from src.Score import Score
+from datetime import datetime
 class Game:
     def __init__(self):
         pygame.init()
@@ -11,8 +12,6 @@ class Game:
         pygame.display.set_caption("Maze Escape")
         self.clock = pygame.time.Clock()
         self.running = True
-        
-        self.levels = [MAZE_LAYOUT_1, MAZE_LAYOUT_2]
         self.current_level = 0
 
         pygame.mixer.init()
@@ -25,6 +24,7 @@ class Game:
         self.menu = Menu(self.screen, self)
         self.maze = None
         self.player = None
+        self.score = Score(self.screen)
         self.font = pygame.font.Font(None, 40)
 
     def run(self):
@@ -41,7 +41,7 @@ class Game:
     def start_new_game(self):
         """Inicia um novo jogo."""
         self.current_level = 0
-        self.maze = Maze(self.levels[self.current_level])
+        self.maze = Maze(self.current_level)
         self.player = Player(60, 60)
         self.running = True  
         self.game_loop()
@@ -89,10 +89,10 @@ class Game:
         
     def next_level(self):
         """Avança para o próximo nível ou finaliza o jogo se todos os níveis foram concluídos."""
-        if self.current_level < len(self.levels) - 1:
+        if self.current_level < len(LEVELS) - 1:
             self.current_level += 1
             self.show_transition_message(f"Nível {self.current_level + 1}")
-            self.maze = Maze(self.levels[self.current_level])  
+            self.maze = Maze(self.current_level)  
             self.player = Player(60, 60)  
         else:
             self.show_victory_message()
@@ -108,8 +108,8 @@ class Game:
         self.screen.fill(WHITE)
         self.draw_text("Parabéns! Você venceu!", WIDTH // 2, HEIGHT // 2, BLACK)
         pygame.display.flip()
-        pygame.time.delay(3000)  
-
+        pygame.time.delay(3000)
+        self.score.save(self.current_level + 1)
         self.menu.running = True
         self.running = False  
         
@@ -117,21 +117,3 @@ class Game:
         text_surface = self.font.render(text, True, color)
         text_rect = text_surface.get_rect(center=(x, y))
         self.screen.blit(text_surface, text_rect)
-
-    def show_score(self):
-        """Exibe a tela de pontuação (por enquanto, apenas uma mensagem)."""
-        while True:
-            self.screen.fill(WHITE)
-            self.draw_text("Pontuações: (A implementar)", WIDTH // 2, HEIGHT // 2, BLACK)
-            self.draw_text("Pressione ESC para voltar", WIDTH // 2, HEIGHT // 2 + 50, BLACK)
-
-            pygame.display.flip()
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    return
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:  
-                        self.menu.running = True  
-                        return

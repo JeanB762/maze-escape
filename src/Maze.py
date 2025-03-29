@@ -1,10 +1,10 @@
 import pygame
 
-from src.Config import TILE_SIZE, MAZE_LAYOUT_5
+from src.Config import TILE_SIZE, LEVELS
 from src.Item import Item
 
 class Maze:
-    def __init__(self, layout):
+    def __init__(self, current_level):
         self.walls = []
         self.items = []
 
@@ -13,8 +13,7 @@ class Maze:
 
         self.floor_image = pygame.image.load("assets/floor.png")
         self.floor_image = pygame.transform.scale(self.floor_image, (TILE_SIZE, TILE_SIZE))
-
-        self.layout = layout
+        self.layout = LEVELS[current_level]
 
         for row_idx, row in enumerate(self.layout):
             for col_idx, cell in enumerate(row):

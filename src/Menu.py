@@ -1,5 +1,6 @@
 import pygame
-from src.Config import WIDTH, HEIGHT, WHITE, BLACK
+from src.Config import WIDTH, HEIGHT, BLACK, MENU_OPTION
+from src.Score import Score
 
 class Menu:
     def __init__(self, screen, game):
@@ -7,10 +8,16 @@ class Menu:
         self.game = game
         self.font = pygame.font.Font(None, 40)
         self.running = True
+        
+        self.surf = pygame.image.load('./assets/MenuBg.png').convert_alpha()
+        self.surf = pygame.transform.scale(self.surf, (WIDTH, HEIGHT))
+        self.rect = self.surf.get_rect(left=0, top=0)
 
-        self.menu_items = ["Novo Jogo", "Ver Pontuação", "Sair"]
+        self.menu_items = MENU_OPTION
         self.selected_item = 0  
-
+        
+        self.score = Score(self.screen)
+        
     def draw_text(self, text, x, y, color):
         """Desenha o texto na tela."""
         text_surface = self.font.render(text, True, color)
@@ -19,8 +26,8 @@ class Menu:
 
     def draw(self):
         """Desenha o menu na tela."""
-        self.screen.fill(WHITE)
-        self.draw_text("Menu Principal", WIDTH // 2, HEIGHT // 3, BLACK)
+        self.screen.blit(source=self.surf, dest=self.rect)
+        self.draw_text("Menu", WIDTH // 2, HEIGHT // 3, BLACK)
 
         for i, item in enumerate(self.menu_items):            
             color = BLACK if i != self.selected_item else (0, 255, 0)  
@@ -43,12 +50,12 @@ class Menu:
                     self.select_option()
 
     def select_option(self):
-      if self.selected_item == 0:  
-          self.game.running = True  
-          self.game.menu.running = False  
-          self.game.start_new_game()  
-      elif self.selected_item == 1:  
-          self.game.show_score()  
-      elif self.selected_item == 2:  
-          self.game.running = False  
-          pygame.quit()  
+        if self.selected_item == 0:
+            self.game.running = True
+            self.game.menu.running = False
+            self.game.start_new_game()
+        elif self.selected_item == 1:
+            self.score.show()
+        elif self.selected_item == 2:
+            self.game.running = False
+            pygame.quit()
