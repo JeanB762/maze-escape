@@ -49,6 +49,7 @@ class Game:
 
     def game_loop(self):
         """Loop principal do jogo."""
+        self.show_initial_message()
         while self.running:
             self.handle_events()
             self.update()
@@ -100,6 +101,14 @@ class Game:
             self.player = Player(60, 60)  
         else:
             self.show_victory_message()
+
+    def show_initial_message(self):
+        """Exibe a imagem de instruções ao iniciar o jogo."""
+        instructions_img = pygame.image.load("./assets/instructions.png")
+        instructions_img = pygame.transform.scale(instructions_img, (WIDTH, HEIGHT))  # Ajusta ao tamanho da tela
+        self.screen.blit(instructions_img, (0, 0))
+        pygame.display.flip()
+        pygame.time.delay(4000) 
 
     def show_transition_message(self, message):
         """Exibe uma mensagem temporária ao trocar de nível."""
