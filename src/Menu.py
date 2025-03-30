@@ -1,6 +1,6 @@
 import sys
 import pygame
-from src.Config import WIDTH, HEIGHT, BLACK, MENU_OPTION
+from src.Config import WIDTH, HEIGHT, MENU_OPTION, WHITE, CYAN
 from src.Score import Score
 
 class Menu:
@@ -35,7 +35,7 @@ class Menu:
         self.screen.blit(self.logo, self.logo_rect)
 
         for i, item in enumerate(self.menu_items):            
-            color = BLACK if i != self.selected_item else (0, 255, 0)  
+            color = WHITE if i != self.selected_item else CYAN  
             self.draw_text(item, WIDTH // 2, HEIGHT // 2 + i * 50, color)
 
         pygame.display.flip()

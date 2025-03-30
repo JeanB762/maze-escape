@@ -5,7 +5,7 @@ from datetime import datetime
 from pygame import Surface, Rect, KEYDOWN, K_RETURN, K_BACKSPACE, K_ESCAPE
 
 from src.DBProxy import DBProxy
-from src.Config import GREEN, SCORE_POS, WHITE, WIDTH, HEIGHT
+from src.Config import SCORE_POS, WIDTH, HEIGHT, WHITE, CYAN
 
 class Score:
     def __init__(self, window: Surface):
@@ -20,7 +20,7 @@ class Score:
         name = ''
         while True:
             self.window.blit(source=self.surf, dest=self.rect)
-            self.score_text(48, 'YOU WIN!!', GREEN, SCORE_POS['Title'])
+            self.score_text(48, 'YOU WIN!!', CYAN, SCORE_POS['Title'])
             text = 'Enter Player Name (4 characters):'
             self.score_text(20, text, WHITE, SCORE_POS['EnterName'])
 
@@ -44,15 +44,15 @@ class Score:
 
     def show(self):
         self.window.blit(source=self.surf, dest=self.rect)
-        self.score_text(48, 'TOP 10 SCORE', GREEN, SCORE_POS['Title'])
-        self.score_text(20, 'NAME     LEVEL           DATE      ', GREEN, SCORE_POS['Label'])
+        self.score_text(48, 'TOP 10 SCORE', CYAN, SCORE_POS['Title'])
+        self.score_text(20, 'NAME     LEVEL           DATE      ', CYAN, SCORE_POS['Label'])
         db_proxy = DBProxy('game_scores.db')
         list_score = db_proxy.retrieve_top10()
         db_proxy.close()
 
         for player_score in list_score:
             name, level, date = player_score
-            self.score_text(20, f'{name}     {level:05d}     {date}', GREEN,
+            self.score_text(20, f'{name}     {level:05d}     {date}', CYAN,
                             SCORE_POS[list_score.index(player_score)])
         while True:
             for event in pygame.event.get():
