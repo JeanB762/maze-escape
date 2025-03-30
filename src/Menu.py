@@ -60,5 +60,7 @@ class Menu:
         elif self.selected_item == 1:
             self.score.show()
         elif self.selected_item == 2:
+            self.running = False
             self.game.running = False
             pygame.quit()
+            sys.exit()
