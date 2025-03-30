@@ -14,6 +14,10 @@ class Menu:
         self.surf = pygame.transform.scale(self.surf, (WIDTH, HEIGHT))
         self.rect = self.surf.get_rect(left=0, top=0)
 
+        self.logo = pygame.image.load('./assets/logo.png').convert_alpha()
+        self.logo = pygame.transform.scale(self.logo, (200, 200))
+        self.logo_rect = self.logo.get_rect(center=(WIDTH // 2, HEIGHT // 4))
+
         self.menu_items = MENU_OPTION
         self.selected_item = 0  
         
@@ -28,7 +32,7 @@ class Menu:
     def draw(self):
         """Desenha o menu na tela."""
         self.screen.blit(source=self.surf, dest=self.rect)
-        self.draw_text("Menu", WIDTH // 2, HEIGHT // 3, BLACK)
+        self.screen.blit(self.logo, self.logo_rect)
 
         for i, item in enumerate(self.menu_items):            
             color = BLACK if i != self.selected_item else (0, 255, 0)  
