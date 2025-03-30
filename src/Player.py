@@ -1,13 +1,13 @@
 import pygame
-from src.Config import PLAYER_SIZE
+from src.Config import PLAYER_SIZE_WIDTH, PLAYER_SIZE_HEIGHT
 
 class Player:
     def __init__(self, x, y):
         self.image_player_right = pygame.image.load("assets/player_right.png")
         self.image_player_left = pygame.image.load("assets/player_left.png")
         
-        self.image_player_right = pygame.transform.scale(self.image_player_right, (PLAYER_SIZE, PLAYER_SIZE))
-        self.image_player_left = pygame.transform.scale(self.image_player_left, (PLAYER_SIZE, PLAYER_SIZE))
+        self.image_player_right = pygame.transform.scale(self.image_player_right, (PLAYER_SIZE_WIDTH, PLAYER_SIZE_HEIGHT))
+        self.image_player_left = pygame.transform.scale(self.image_player_left, (PLAYER_SIZE_WIDTH, PLAYER_SIZE_HEIGHT))
 
         self.image = self.image_player_right
         self.rect = self.image.get_rect(topleft=(x, y))
