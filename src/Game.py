@@ -1,6 +1,6 @@
 import sys 
 import pygame
-from src.Config import WIDTH, HEIGHT, WHITE, FPS, BLACK, LEVELS
+from src.Config import WIDTH, HEIGHT, WHITE, FPS, BLACK, LEVELS, TILE_SIZE
 from src.Player import Player
 from src.Maze import Maze
 from src.Menu import Menu
@@ -43,7 +43,7 @@ class Game:
         """Inicia um novo jogo."""
         self.current_level = 0
         self.maze = Maze(self.current_level)
-        self.player = Player(60, 60)
+        self.player = Player(TILE_SIZE, TILE_SIZE)
         self.running = True  
         self.game_loop()
 
