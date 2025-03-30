@@ -1,3 +1,4 @@
+import sys
 import pygame
 from src.Config import WIDTH, HEIGHT, BLACK, MENU_OPTION
 from src.Score import Score
@@ -41,6 +42,8 @@ class Menu:
             if event.type == pygame.QUIT:
                 self.running = False
                 self.game.running = False
+                pygame.quit()
+                sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:  
                     self.selected_item = (self.selected_item + 1) % len(self.menu_items)

@@ -1,3 +1,4 @@
+import sys 
 import pygame
 from src.Config import WIDTH, HEIGHT, WHITE, FPS, BLACK, LEVELS
 from src.Player import Player
@@ -61,6 +62,9 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
+                self.menu.running = False
+                pygame.quit()
+                sys.exit()
 
     def update(self):
         keys = pygame.key.get_pressed()
